@@ -24,6 +24,17 @@ final class CharactersViewController: UIViewController {
 //        navigationController?.tabBarItem.title = "OK OK OK"
         
         view.backgroundColor = .blue
+        
+        let request = RMRequest(endpoint: .character)
+        RMService.shared.execute(request, expecting: RMMultiObjectsResponse<RMCharacter>.self) { result in
+            switch result {
+            case .success(let data):
+                print(data.info.count)
+            case .failure(let error):
+                print(error)
+            }
+        }
+//        print(request.url)
     }
     
     override func viewWillAppear(_ animated: Bool) {
