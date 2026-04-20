@@ -10,6 +10,8 @@ import UIKit
 
 final class CharactersViewController: UIViewController {
     
+    private let characterView = CharacterListView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,18 +25,19 @@ final class CharactersViewController: UIViewController {
         print("setUpViewControllers -- self.navigationController?.tabBarItem.title -- \(String(describing: self.navigationController?.tabBarItem.title))")
 //        navigationController?.tabBarItem.title = "OK OK OK"
         
-        view.backgroundColor = .blue
+        view.backgroundColor = .systemBackground
         
-        let request = RMRequest(endpoint: .character)
-        RMService.shared.execute(request, expecting: RMMultiObjectsResponse<RMCharacter>.self) { result in
-            switch result {
-            case .success(let data):
-                print(data.info.count)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        
 //        print(request.url)
+        
+        view.addSubview(characterView)
+        
+        NSLayoutConstraint.activate([
+            characterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            characterView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            characterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
     
     override func viewWillAppear(_ animated: Bool) {

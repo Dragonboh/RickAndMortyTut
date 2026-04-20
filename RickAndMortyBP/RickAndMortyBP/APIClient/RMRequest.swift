@@ -56,3 +56,7 @@ class RMRequest {
         self.queryItems = queryItems
     }
 }
+
+extension RMRequest {
+    static let charactersList = RMRequest(endpoint: .character)
+}
